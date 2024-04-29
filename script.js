@@ -2,12 +2,26 @@ const mario = document.querySelector('.mario')
 const pipe = document.querySelector('.pipe')
 const pontuacao = document.getElementById('pontos')
 let pontos = 0;
+let touching = false;
+
 
 const jump = () =>{
     mario.classList.add('jump');
     setTimeout(() => {
         mario.classList.remove('jump');
     },500)
+}
+
+
+const touchJump = () => {
+    if (!touching) {
+        jump();
+        touching = true;
+    }
+}
+
+const touchEnd = () => {
+    touching = false;
 }
 
 
@@ -36,9 +50,7 @@ const loop = setInterval( () => {
         pontos += 1;
     }
 }, 10)
+
 document.addEventListener('keydown', jump);
-
-
-function reiniciarJogo(){
-    
-}
+document.addEventListener('touchstart', touchJump);
+document.addEventListener('touchend', touchEnd);
